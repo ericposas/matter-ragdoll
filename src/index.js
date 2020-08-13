@@ -58,17 +58,17 @@ window.start = () => {
 
 	let ground = Bodies.rectangle(width/2, height + 50, width, 200, { isStatic: true })
 	// create ragdoll guy
-	function createRagdoll() {
-		let lowerLeg1 = Bodies.rectangle(0, 100, 10, 30)
-		let lowerLeg2 = Bodies.rectangle(20, 100, 10, 30)
-		let upperLeg1 = Bodies.rectangle(0, 50, 10, 30)
-		let upperLeg2 = Bodies.rectangle(20, 50, 10, 30)
-		let torso = Bodies.rectangle(10, 0, 25, 50)
-		let head = Bodies.rectangle(10, 0, 25, 25)
-		let upperArm1 = Bodies.rectangle(-10, 20, 10, 20)
-		let lowerArm1 = Bodies.rectangle(-10, 50, 10, 20)
-		let upperArm2 = Bodies.rectangle(40, 20, 10, 20)
-		let lowerArm2 = Bodies.rectangle(40, 50, 10, 20)
+	function createRagdoll(scale) {
+		let lowerLeg1 = Bodies.rectangle(0, 100*scale, 10*scale, 30*scale)
+		let lowerLeg2 = Bodies.rectangle(20*scale, 100*scale, 10*scale, 30*scale)
+		let upperLeg1 = Bodies.rectangle(0, 50*scale, 10*scale, 30*scale)
+		let upperLeg2 = Bodies.rectangle(20*scale, 50*scale, 10*scale, 30*scale)
+		let torso = Bodies.rectangle(10*scale, 0*scale, 25*scale, 50*scale)
+		let head = Bodies.rectangle(10*scale, 0*scale, 25*scale, 25*scale)
+		let upperArm1 = Bodies.rectangle(-10*scale, 20*scale, 10*scale, 20*scale)
+		let lowerArm1 = Bodies.rectangle(-10*scale, 50*scale, 10*scale, 20*scale)
+		let upperArm2 = Bodies.rectangle(40*scale, 20*scale, 10*scale, 20*scale)
+		let lowerArm2 = Bodies.rectangle(40*scale, 50*scale, 10*scale, 20*scale)
 		lowerLeg1.label = 'lower leg 1'
 		upperLeg1.label = 'upper leg 1'
 		lowerLeg2.label = 'lower leg 2'
@@ -80,68 +80,82 @@ window.start = () => {
 		head.label = 'head'
 		torso.label = 'torso'
 
+		let renderProps = {
+			anchors: false,
+			visible: false
+		}
+
 		let upperleg1_to_torso = Constraint.create({
 			bodyA: upperLeg1,
 			bodyB: torso,
-			pointA: { x: 0, y: -15 },
-			pointB: { x: -10, y: 25 },
-			length: 1
+			pointA: { x: 0*scale, y: -15*scale },
+			pointB: { x: -10*scale, y: 25*scale },
+			length: 1*scale,
+			render: renderProps
 		})
 		let upperleg2_to_torso = Constraint.create({
 			bodyA: upperLeg2,
 			bodyB: torso,
-			pointA: { x: 0, y: -15 },
-			pointB: { x: 10, y: 25 },
-			length: 1
+			pointA: { x: 0*scale, y: -15*scale },
+			pointB: { x: 10*scale, y: 25*scale },
+			length: 1*scale,
+			render: renderProps
 		})
 		let lowerleg1_to_upperleg1 = Constraint.create({
 			bodyA: lowerLeg1,
 			bodyB: upperLeg1,
-			pointA: { x: 0, y: -15 },
-			pointB: { x: 0, y: 15 },
-			length: 1
+			pointA: { x: 0*scale, y: -15*scale },
+			pointB: { x: 0*scale, y: 15*scale },
+			length: 1*scale,
+			render: renderProps
 		})
 		let lowerleg2_to_upperleg2 = Constraint.create({
 			bodyA: lowerLeg2,
 			bodyB: upperLeg2,
-			pointA: { x: 0, y: -15 },
-			pointB: { x: 0, y: 15 },
-			length: 1
+			pointA: { x: 0*scale, y: -15*scale },
+			pointB: { x: 0*scale, y: 15*scale },
+			length: 1*scale,
+			render: renderProps
 		})
 		let head_to_torso = Constraint.create({
 			bodyA: head,
 			bodyB: torso,
-			pointA: { x: 0, y: 15 },
-			pointB: { x: 0, y: -25 },
-			length: 4
+			pointA: { x: 0*scale, y: 15*scale },
+			pointB: { x: 0*scale, y: -25*scale },
+			length: 4*scale,
+			render: renderProps
 		})
 		let upperarm1_to_torso = Constraint.create({
 			bodyA: upperArm1,
 			bodyB: torso,
-			pointA: { x: 0, y: -10 },
-			pointB: { x: -15, y: -25 },
-			length: 4
+			pointA: { x: 0*scale, y: -10*scale },
+			pointB: { x: -15*scale, y: -25*scale },
+			length: 4*scale,
+			render: renderProps
 		})
 		let lowerarm1_to_upperarm1 = Constraint.create({
 			bodyA: upperArm1,
 			bodyB: lowerArm1,
-			pointA: { x: 0, y: 10 },
-			pointB: { x: 0, y: -10 },
-			length: 1
+			pointA: { x: 0*scale, y: 10*scale },
+			pointB: { x: 0*scale, y: -10*scale },
+			length: 1*scale,
+			render: renderProps
 		})
 		let upperarm2_to_torso = Constraint.create({
 			bodyA: upperArm2,
 			bodyB: torso,
-			pointA: { x: 0, y: -10 },
-			pointB: { x: 15, y: -25 },
-			length: 4
+			pointA: { x: 0*scale, y: -10*scale },
+			pointB: { x: 15*scale, y: -25*scale },
+			length: 4*scale,
+			render: renderProps
 		})
 		let lowerarm2_to_upperarm2 = Constraint.create({
 			bodyA: upperArm2,
 			bodyB: lowerArm2,
-			pointA: { x: 0, y: 10 },
-			pointB: { x: 0, y: -10 },
-			length: 1
+			pointA: { x: 0*scale, y: 10*scale },
+			pointB: { x: 0*scale, y: -10*scale },
+			length: 1*scale,
+			render: renderProps
 		})
 
 		let collection = Composite.create({
@@ -163,8 +177,8 @@ window.start = () => {
 		return collection
 	}
 
-	let rag1 = createRagdoll()
-	let rag2 = createRagdoll()
+	let rag1 = createRagdoll(.5)
+	let rag2 = createRagdoll(1)
 	// add bodies
 	World.add(world, [
 		ground,
@@ -177,7 +191,7 @@ window.start = () => {
 	document.addEventListener('click', e => {
 		// Composite.applyForce(rag1.bodies[0], { x: rag1.position.x, y: rag1.position.y })
 		// console.log(rag1.bodies)
-		rag1.bodies[1].force = { x: 0, y: .5 }
+		rag1.bodies[1].force = { x: 0, y: .2 }
 		rag2.bodies[1].force = { x: 0, y: .75 }
 
 		// console.log(
